@@ -12,7 +12,7 @@ def ObtenerInfo(token):
                 'data':{
                     'id':user.id,
                     'email':user.email,
-                    'admin':user.permisos_admin,
+                    'admin':user.admin,
                     'registered_on':user.registered_on
                 }
             }

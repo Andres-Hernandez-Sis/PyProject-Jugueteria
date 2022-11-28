@@ -11,8 +11,7 @@ def registro():
     user = request.get_json()
     userExist = User.query.filter_by(email=user['email']).first()
     if not userExist:
-        #usuario = User(email=user['email'], password=user["password"])
-        usuario = User(nombre=user['nombre'], email=user['email'], telefono=user['telefono'],permisos_admin=user['permisos_admin'], password=user["password"])
+        usuario = User(nombre=user['nombre'], email=user['email'],telefono=user["telefono"], password=user["password"])
         try:
             db.session.add(usuario)
             db.session.commit()
@@ -27,7 +26,7 @@ def registro():
 @appuser.route('/auth/login',methods={'POST'})
 def login():
     user = request.get_json()
-    usuario = User(email=user['email'], password=user['password'])
+    usuario = User(nombre=user['nombre'], email=user['email'],telefono=user["telefono"], password=user["password"])
     searchUser = User.query.filter_by(email=usuario.email).first()
     if searchUser:
         validation = bcrypt.check_password_hash(searchUser.password,user["password"])
@@ -54,6 +53,6 @@ def getUsers(usuario):
             obj['email']=usuario.email
             obj['password']=usuario.password
             obj['registered_on'] = usuario.registered_on
-            obj['admin'] = usuario.permisos_admin
+            obj['admin'] = usuario.admin
             output.append(obj)
         return jsonify({'usuarios':output})

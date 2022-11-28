@@ -4,20 +4,23 @@ from config import BaseConfig
 from app import db, bcrypt
 
 class User(db.Model):
-    __tablename__ = "usuarios"
+    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nombre = db.Column(db.String(255), unique=True, nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     telefono = db.Column(db.String(255), unique=True, nullable=False)
-    permisos_admin = db.Column(db.Boolean, nullable=False, default=False)
     password = db.Column(db.String(255), nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False)
+    admin = db.Column(db.Boolean, nullable=False, default=False)
 
-    def __init__(self,id,nombre, email,telefono,permisos_admin, password) -> None:
+
+    def __init__(self,nombre,email,telefono,password,admin=True) -> None:
+        self.nombre = nombre
         self.email = email
-        self.password = bcrypt.generate_password_hash(password, BaseConfig.BCRYPT_LOG_ROUND).decode()
-        self.registered_on = datetime.datetime.now()
-        self.permisos_admin = permisos_admin
+        self.telefono = telefono
+        self.password=bcrypt.generate_password_hash(password, BaseConfig.BCRYPT_LOG_ROUND).decode()
+        self.registered_on=datetime.datetime.now()
+        self.admin = admin
 
     def encode_auth_token(self, user_id):
         try:
