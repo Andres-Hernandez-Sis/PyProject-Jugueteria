@@ -4,7 +4,7 @@ from config import BaseConfig
 from app import db, bcrypt
 
 class User(db.Model):
-    __tablename__ = "users"
+    __tablename__ = "usuario"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nombre = db.Column(db.String(255), unique=True, nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)

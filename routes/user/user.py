@@ -11,7 +11,7 @@ def registro():
     user = request.get_json()
     userExist = User.query.filter_by(email=user['email']).first()
     if not userExist:
-        usuario = User(nombre=user['nombre'], email=user['email'],telefono=user["telefono"], password=user["password"])
+        usuario = User(nombre=user['nombre'], email=user['email'], telefono=user["telefono"], password=user["password"])
         try:
             db.session.add(usuario)
             db.session.commit()
@@ -26,7 +26,7 @@ def registro():
 @appuser.route('/auth/login',methods={'POST'})
 def login():
     user = request.get_json()
-    usuario = User(nombre=user['nombre'], email=user['email'],telefono=user["telefono"], password=user["password"])
+    usuario = User(nombre=user['nombre'], email=user['email'], telefono=user["telefono"], password=user["password"])
     searchUser = User.query.filter_by(email=usuario.email).first()
     if searchUser:
         validation = bcrypt.check_password_hash(searchUser.password,user["password"])
