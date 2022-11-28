@@ -14,8 +14,8 @@ class User(db.Model):
     admin = db.Column(db.Boolean, nullable=False, default=False)
 
 
-    def __init__(self,nombre,email,telefono,password,admin=True) -> None:
-        self.nombre = nombre
+    def __init__(self,nombre,email,telefono,password,admin=True) -> None:  #Acomodar para que deje de ser true.
+        self.nombre = nombre #Hay que ver como hacer que podamos iniciar sesion sin enviar todos los datos del objeto.
         self.email = email
         self.telefono = telefono
         self.password=bcrypt.generate_password_hash(password, BaseConfig.BCRYPT_LOG_ROUND).decode()
