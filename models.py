@@ -13,11 +13,11 @@ class User(db.Model):
     password = db.Column(db.String(255), nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False)
 
-    def __init__(self, email, password, admin = True) -> None:
+    def __init__(self,id,nombre, email,telefono,permisos_admin, password) -> None:
         self.email = email
         self.password = bcrypt.generate_password_hash(password, BaseConfig.BCRYPT_LOG_ROUND).decode()
         self.registered_on = datetime.datetime.now()
-        self.permisos_admin = admin
+        self.permisos_admin = permisos_admin
 
     def encode_auth_token(self, user_id):
         try:

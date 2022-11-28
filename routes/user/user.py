@@ -11,14 +11,14 @@ def registro():
     user = request.get_json()
     userExist = User.query.filter_by(email=user['email']).first()
     if not userExist:
-        usuario = User(email=user['email'], password=user["password"])
-        #usuario = User(id=user['id'], nombre=user['nombre'], email=user['email'], telefono=user['telefono'],permisos_admin=user['permisos_admin'], password=user["password"])
+        #usuario = User(email=user['email'], password=user["password"])
+        usuario = User(nombre=user['nombre'], email=user['email'], telefono=user['telefono'],permisos_admin=user['permisos_admin'], password=user["password"])
         try:
             db.session.add(usuario)
             db.session.commit()
             mensaje = "Usuario Creado"
         except exc.SQLAlchemyError as e:
-            mensaje = "Error, no se agrego el usuario" + e #Quitar la e
+            mensaje = e
     else:
         mensaje="El usuario ya existe"
     return jsonify({"mensaje":mensaje})
